@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="http://cdn.amazeui.org/amazeui/2.7.2/css/amazeui.min.css">
+</head>
+<body style="padding: 50px" >
+<div ng-controller="show">
+    <p>protocol : {{protocol}}</p>
+    <p>absUrl : {{absUrl}}</p>
+    <p>port : {{port}}</p>
+    <p>path : {{path}}</p>
+    <p>search : {{search}}</p>
+    <p>hash : {{hash}}</p>
+</div>
+
+<script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>
+<script>
+    angular.module('app',[])
+        .controller('show',function ($scope,$location) {
+            $scope.protocol = $location.protocol();
+            $scope.absUrl = $location.absUrl();
+            $scope.port = $location.port();
+            $scope.path = $location.path();
+            $scope.search = $location.search();
+            $scope.hash = $location.hash();
+
+        })
+</script>
+</body>
+</html>

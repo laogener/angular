@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="http://cdn.amazeui.org/amazeui/2.7.2/css/amazeui.min.css">
+</head>
+<body style="padding: 50px" >
+<div ng-controller="test">
+    <button type="button" class="am-btn am-btn-success" ng-click="testClick()">绿色按钮</button>
+</div>
+
+<script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>
+<script>
+    angular.module('app',[])
+        .controller('test',function ($scope,$http) {
+            $scope.stu = '';
+            $http.get('json.text')
+                .success(function (data, staus, headers, config) {
+                    $scope.stu = data;
+                    console.log(staus)
+                    console.log($scope.stu)
+                })
+                .error(function (data, staus, headers, config) {})
+
+            $scope.testClick = function () {
+                $http.post('test.php',{a:'a', b:'b'})
+                    .success(function (data, staus, headers, config) {
+                        console.log(data);
+                    })
+            }
+        })
+</script>
+</body>
+</html>

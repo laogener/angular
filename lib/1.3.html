@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="http://cdn.amazeui.org/amazeui/2.7.2/css/amazeui.min.css">
+</head>
+<body style="padding: 50px" >
+<script type="text/ng-template" id="newList">
+<li><a href="{{url}}">{{msg}}</a></li>
+</script>
+<ul class="am-list" ng-include src="'newList'" ng-controller="news">
+
+</ul>
+
+<script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>
+<script>
+    angular.module('app',[])
+        .controller('news',function ($scope) {
+            $scope.msg = 'This is first msg';
+            $scope.msg = 'http://www.baidu.com';
+        })
+</script>
+</body>
+</html>

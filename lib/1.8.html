@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="http://cdn.amazeui.org/amazeui/2.7.2/css/amazeui.min.css">
+</head>
+<body style="padding: 50px" >
+<div ng-controller="show" style="width: 200px">
+    <div class="am-input-group">
+        <span class="am-input-group-label"><i class="am-icon-user am-icon-fw"></i></span>
+        <input type="text" class="am-form-field" placeholder="请输入要缓存的内容" ng-model="cName">
+    </div>
+    <button type="button" class="am-btn am-btn-primary" ng-click="cSet()">设置缓存</button>
+    <button type="button" class="am-btn am-btn-secondary" ng-click="cShow()">查看缓存</button>
+    <button type="button" class="am-btn am-btn-danger" ng-click="cDel()">删除缓存</button>
+    <p>{{showC}}</p>
+
+</div>
+
+<script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>
+<script>
+    angular.module('app',[])
+        .service('cache',function ($cacheFactory) {
+            return $cacheFactory('test')
+        })
+        .controller('show',function ($scope,cache) {
+            $scope.cSet = function () {
+                cache.put('mytext',$scope.cName);
+            }
+            $scope.cShow = function () {
+                $scope.showC = cache.get('mytext');
+            }
+            $scope.cDel = function () {
+                cache.remove('mytext');
+                $scope.showC = cache.get('mytext');
+                cache.removeAll();
+                cache.destroy();
+            }
+        })
+</script>
+</body>
+</html>

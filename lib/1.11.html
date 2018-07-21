@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="http://cdn.amazeui.org/amazeui/2.7.2/css/amazeui.min.css">
+</head>
+<body style="padding: 50px" >
+<div ng-controller="show">
+    <p>
+        E(标签)：
+        <qqicon></qqicon>
+    </p>
+    <p>
+        A(属性)：
+    <div qqicon></div>
+    <div data-qqicon></div>
+    </p>
+    <p>
+        C(class):
+        <div class="qqicon"></div>
+    </p>
+    <hr>
+    <p>
+        <qqscript></qqscript>
+    </p>
+    <hr>
+    <p>
+        <qqhtml></qqhtml>
+    </p>
+    <hr>
+    <p>
+        <qqcache></qqcache>
+    </p>
+</div>
+
+<script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>
+<script type="text/ng-template" id="ss">
+    <h3>script方式</h3>
+</script>
+<script>
+    angular.module('app',[])
+        .directive('qqicon',function () {
+            return{
+                restrict:'EAC',
+                template:'<a href="##" class="am-icon-btn am-primary am-icon-qq"></a>'
+            }
+        })
+        .directive('qqscript',function () {
+            return{
+                restrict:'EAC',
+                templateUrl:'ss'
+            }
+        })
+        .directive('qqhtml',function () {
+            return{
+                restrict:'EAC',
+                templateUrl:'ss.html'
+            }
+        })
+        .directive('qqcache',function () {
+            return{
+                restrict:'EAC',
+                templateUrl:'cache'
+            }
+        })
+        .run(
+            function ($templateCache) {
+                $templateCache.put('cache','cache方式')
+            }
+        )
+</script>
+</body>
+</html>

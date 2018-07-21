@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="http://cdn.amazeui.org/amazeui/2.7.2/css/amazeui.min.css">
+</head>
+<body style="padding: 50px" >
+<div ng-controller="CookieCtrl">
+<button ng-click="setCookie()">set cookie</button>
+<button ng-click="readCookie()">read Cookie</button>
+<button ng-click="removeCookie()">remove Cookie</button>
+</div>
+<script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>
+<script src="https://cdn.bootcss.com/angular-cookie/4.0.0/angular-cookie.js"></script>
+<script>
+    angular.module('app',['ngCookies'])
+        .controller('CookieCtrl',function ($scope,$cookieStore) {
+            $scope.setCookie = function () {
+                $cookieStore.put('name','srinivas');
+                alert('cookie was set');
+            };
+            $scope.readCookie = function () {
+                alert( $cookieStore.get('name'));
+            };
+            $scope.removeCookie = function () {
+                $cookieStore.remove('name');
+                alert('cookie was removed');
+            };
+        })
+    // function CookieCtrl($scope,$cookieStore) {
+    //     $scope.setCookie = function () {
+    //         $cookieStore.put('name','srinivas');
+    //         alert('cookie was set');
+    //     };
+    //     $scope.readCookie = function () {
+    //         alert( $cookieStore.get('name'));
+    //     };
+    //     $scope.removeCookie = function () {
+    //         $cookieStore.remove('name');
+    //         alert('cookie was removed');
+    //     };
+    // }
+</script>
+</body>
+</html>

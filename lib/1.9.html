@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="http://cdn.amazeui.org/amazeui/2.7.2/css/amazeui.min.css">
+</head>
+<body style="padding: 50px" >
+<div ng-controller="myCtrl">
+<ul>
+    <li><a href="#/a">click a</a></li>
+    <li><a href="#/b">click b</a></li>
+    <pre>
+        $routeProvider.when(url,{
+            template:string, //在ng-view中插入简单的html内容
+            templateUrl:string, //在ng-view中插入html模版文件
+            controller:string,function / array, //在当前模版上执行的controller函数
+            controllerAs:string, //为controller指定别名
+            redirectTo:string,function, //重定向的地址
+            resolve:object(key,function)//指定当前controller所依赖的其他模块
+        });
+    </pre>
+    <ng-view></ng-view>
+    <!--<div ng-view></div>-->
+</ul>
+</div>
+
+<script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>
+<script src="http://apps.bdimg.com/libs/angular-route/1.3.13/angular-route.js"></script>
+<script>
+    angular.module('app',['ngRoute'])
+        .controller('aController',function ($scope) {
+            $scope.hello = 'hello a!';
+        })
+        .controller('bController',function ($scope) {
+            $scope.hello = 'hello b!';
+        })
+        .controller('myCtrl',function ($scope) {
+            $scope.$on('$viewContentLoaded',function () {
+                console.log('当ngView内容被重新加载时，从ngView作用域上发布');
+            })
+            $scope.$on('$routeChangeStart',function (event,next,current) {
+                console.log('通过$location服务队浏览器地址更新时会触发$locationChangeStart事件');
+            })
+        })
+        .config(function ($routeProvider) {
+            $routeProvider
+                .when('/a',{
+               templateUrl:'a.html',
+               controller:'aController'
+            })
+                .when('/b',{
+                templateUrl:'b.html',
+                controller:'bController',
+                resolve:{//制定当前controller依赖的其他模块
+                    delay:function ($q, $timeout) {//$q委托
+                        var delay = $q.defer();
+                        $timeout(delay.resolve,3000);//完成委托
+                        return delay.promise;//交付
+                    }
+                }
+            })
+                .otherwise({
+                    redierectTo:'/a'
+                })
+        })
+</script>
+</body>
+</html>

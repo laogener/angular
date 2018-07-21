@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="http://cdn.amazeui.org/amazeui/2.7.2/css/amazeui.min.css">
+</head>
+<body style="padding: 50px" >
+<!--value:变量-->
+<!--constant:常量-->
+<!--factory:工厂模式-->
+<!--service:服务-->
+<div ng-controller="test">
+<p>value:{{valueName}}</p>
+<p>constant:{{constantName}}</p>
+<p>女朋友的名字:{{girlFriend.name}}</p>
+<p>小三的名字:{{xiaosan.name}}</p>
+<p>小三的小名:{{xiaosan.xiaoming()}}</p>
+</div>
+
+<script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>
+<script>
+    angular.module('app',[])
+        .value('valueName','这是一个service的变量')
+        .value('valueName','我污染了valueName的值')
+        .constant('constantName','这是一个service的常量')
+        .constant('constantName','我也想污染constantName的值')
+        .factory('girlFriend',function () {
+            // return{
+            //     name:'林志玲',
+            //     xiaoming:function () {
+            //         this.name = '玲玲'
+            //     }
+            // }
+            return new xiaomingTemp()
+        })
+        .service('xiaosan',function () {
+            this.name = '小泽玛利亚';
+            this.xiaoming = function () {
+                return '玛丽'
+            }
+        })
+        .controller('test',function ($scope,valueName,constantName,girlFriend,xiaosan) {
+            $scope.valueName = valueName;
+            $scope.constantName = constantName;
+            $scope.girlFriend = girlFriend;
+            girlFriend.xiaoming();
+            $scope.xiaosan = xiaosan;
+        })
+
+    function xiaomingTemp() {
+        this.name = '小泽玛利亚';
+        this.xiaoming = function () {
+            return '玛丽'
+        }
+    }
+</script>
+</body>
+</html>
